@@ -47,5 +47,32 @@ namespace Dolgozatok
             dolgozatok.Add(new Dolgozat("Molnár Réka", 18, 89));
             dolgozatok.Add(new Dolgozat("Lakatos Dániel", 17, 72));
         }
+        private void hozzaad(object sender, RoutedEventArgs e)
+        {
+            if (tboxNev.Text == "" || tboxEletkor.Text == "" || tboxPontszam.Text == "")
+            {
+                MessageBox.Show("Minden mezőt ki kell tölteni");
+                return;
+            }
+
+            int eletkor;
+            int pontszam;
+            if (!int.TryParse(tboxEletkor.Text, out eletkor) || !int.TryParse(tboxPontszam.Text, out pontszam))
+            {
+                MessageBox.Show("Az életkor és a pontszám csak szám lehet");
+                return;
+            }
+
+            if (pontszam < 0)
+            {
+                MessageBox.Show("A pontszám nem lehet negatív");
+            }
+
+            dolgozatok.Add(new Dolgozat(tboxNev.Text, eletkor, pontszam));
+            dgrid.Items.Refresh();
+            tboxNev.Clear();
+            tboxEletkor.Clear();
+            tboxPontszam.Clear();
+        }
     }
 }
